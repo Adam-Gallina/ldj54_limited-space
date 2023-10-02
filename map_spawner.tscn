@@ -1,0 +1,181 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkyd3s8bj6gm2"]
+
+[ext_resource type="PackedScene" uid="uid://db7w2ujroi7ep" path="res://Planets/food_planet.tscn" id="1_a5bap"]
+[ext_resource type="PackedScene" uid="uid://b15trnqtit63w" path="res://Planets/metal_planet.tscn" id="2_j3tjt"]
+[ext_resource type="PackedScene" uid="uid://fc7tve7lfdbk" path="res://Planets/planet.tscn" id="3_qmf61"]
+[ext_resource type="PackedScene" uid="uid://du4wihkvhy8x2" path="res://Planets/alien_planet.tscn" id="4_4t1f4"]
+
+[sub_resource type="GDScript" id="GDScript_35jlf"]
+script/source = "extends Node
+
+@export var GridSize = 250
+@export var PlanetJitter = 25
+@export var PlanetMargin = 400
+
+@export_category('Planet Spawning')
+@export_group('Inner Planets')
+@export var InnerPlanets: Array[PackedScene]
+@export var InnerRadius: int = 3
+@export var InnerDensity: float
+@export_group('Outer Planets')
+@export var OuterPlanets: Array[PackedScene]
+@export var OuterRadius: int = 5
+@export var OuterDensity: float
+@export_group('Alien Planets')
+@export var AlienPlanets: Array[PackedScene]
+@export var AlienCount: int = 6
+@export_group('','')
+@export_category('')
+
+var planets = []
+var alien_planets = []
+
+func _random_planet(p: Array[PackedScene]): return p[randi() % p.size()]
+
+func _spawn_planet(planet_parent: Node, planets: Array[PackedScene], pos):
+	var p = _random_planet(planets).instantiate()
+	planet_parent.add_child(p)
+	p.position = pos
+	p.position.x += randf_range(-PlanetJitter, PlanetJitter)
+	p.position.y += randf_range(-PlanetJitter, PlanetJitter)
+	return p
+
+func _spawn_planet_region(planet_parent: Node, planets: Array[PackedScene], minRadius: int, maxRadius: int, chance: float):
+	var new_planets = []
+	for x in range(-maxRadius, maxRadius):
+		for y in range(-maxRadius, maxRadius):
+			if x == 0 and y == 0:
+				continue
+			var v = Vector2(x, y).length()
+			if v > maxRadius or v < minRadius:
+				continue
+			
+			if randf() <= chance:
+				new_planets.append(_spawn_planet(planet_parent, planets, Vector2(x, y) * GridSize))
+	return new_planets
+
+func _spawn_planet_region_count(planet_parent: Node, planets: Array[PackedScene], radius: int, count: int):
+	var new_planets = []
+	
+	var step = 2 * PI / count
+	var dir = Vector2.UP * radius * GridSize
+	dir = dir.rotated(randf() * step)
+	
+	for i in count:
+		new_planets.append(_spawn_planet(planet_parent, planets, dir))
+		dir = dir.rotated(step)
+
+	return new_planets
+
+func _dist(p1, p2): return (p1.position - p2.position).length()
+	
+func _get_paths(i, adjacent, _paths=[]):
+	if i in _paths: return _paths
+	_paths.append(i)
+	
+	for p in adjacent[i]:
+		if p in _paths: continue
+		_get_paths(p, adjacent, _paths)
+	
+	return _paths
+
+# Returns null if there is already a valid closest planet
+func _get_closest(p, group, planets):
+	var closest = null
+	var dist = 9223372036854775807
+	for i in group:
+		if i == p: continue
+		var d = _dist(planets[p], planets[i])
+		if d < PlanetMargin: return null
+		if d < dist:
+			dist = d
+			closest = i
+	if closest == null:
+		push_warning('[map_spawner._get_closest] No valid closest available')
+		return null
+	return planets[closest]
+	
+
+func GenerateMap(planet_parent: Node, satellite: Node):
+	planets += _spawn_planet_region(planet_parent, InnerPlanets, 0, InnerRadius, InnerDensity)
+	planets += _spawn_planet_region(planet_parent, OuterPlanets, InnerRadius, OuterRadius, OuterDensity)
+	alien_planets += _spawn_planet_region_count(planet_parent, AlienPlanets, OuterRadius, AlienCount)
+	planets += alien_planets
+	
+	var adjacent = []
+	
+	# Preprocess, get adjacent planets
+	for i in planets.size():
+		adjacent.append([])
+		for j in planets.size():
+			if i == j:
+				continue
+			if _dist(planets[i], planets[j]) < PlanetMargin:
+				adjacent[i].append(j)
+	
+	# Group all valid paths together
+	var groups = []
+	for i in planets.size():
+		var in_group = false
+		for g in groups: if i in g: in_group = true; break
+		if in_group: continue
+		
+		groups.append(_get_paths(i, adjacent))
+	
+	# Find paths that reach satellite
+	var valid = []
+	if groups.size() > 0:
+		for g in range(groups.size()-1, -1, -1):
+			for i in groups[g]:
+				if _dist(planets[i], satellite) < PlanetMargin:
+					valid += groups[g]
+					groups.erase(groups[g])
+					continue
+
+	for g in groups:
+		var start = null
+		var target = null
+		var dist = 9223372036854775807
+		for i in g:
+			var t = _get_closest(i, valid, planets)
+			if t == null: 
+				target = null
+				break
+			
+			var d = _dist(planets[i], t)
+			if d < dist:
+				dist = d
+				start = planets[i]
+				target = t
+		
+		valid += g
+		if target == null: continue
+		
+		target.modulate = Color.GREEN
+		start.modulate = Color.RED
+		
+		var dir = target.position - start.position
+		var count = dir.length() / GridSize
+		var step = dir / count
+		var p = start
+		for c in range(1, count):
+			p = _spawn_planet(planet_parent, OuterPlanets, start.position + step * c)
+			p.modulate = Color.BLACK
+			planets.append(p)
+			valid.append(planets.size()-1)
+		
+		if _dist(p, target) > PlanetMargin:
+			p = _spawn_planet(planet_parent, OuterPlanets, p.position + (target.position - p.position) / 2)
+			p.modulate = Color.ORANGE
+			planets.append(p)
+			valid.append(planets.size()-1)
+"
+
+[node name="MapSpawner" type="Node"]
+script = SubResource("GDScript_35jlf")
+GridSize = 300
+InnerPlanets = Array[PackedScene]([ExtResource("1_a5bap"), ExtResource("1_a5bap"), ExtResource("2_j3tjt"), ExtResource("3_qmf61"), ExtResource("3_qmf61")])
+InnerDensity = 0.4
+OuterPlanets = Array[PackedScene]([ExtResource("3_qmf61"), ExtResource("3_qmf61"), ExtResource("3_qmf61"), ExtResource("2_j3tjt")])
+OuterDensity = 0.25
+AlienPlanets = Array[PackedScene]([ExtResource("4_4t1f4")])

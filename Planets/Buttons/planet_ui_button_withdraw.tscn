@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqo6tccsotmjk"]
+
+[ext_resource type="PackedScene" uid="uid://jfh7xxyqo21y" path="res://Planets/Buttons/planet_ui_button.tscn" id="1_pickx"]
+[ext_resource type="Texture2D" uid="uid://bxnt3dq6qpxo6" path="res://Images/Icons/Withdraw.png" id="2_7vorw"]
+[ext_resource type="Texture2D" uid="uid://b3unsw8y6r51" path="res://Images/Icons/Withdraw_Hovered.png" id="3_tunbi"]
+[ext_resource type="Texture2D" uid="uid://b48b7jiq8nrry" path="res://Images/Icons/Withdraw_Disabled.png" id="4_wttsj"]
+[ext_resource type="AudioStream" uid="uid://bd6oxmxnhruo1" path="res://Audio/Place Building.wav" id="5_1sp3j"]
+
+[node name="planet_ui_button_withdraw" instance=ExtResource("1_pickx")]
+texture_normal = ExtResource("2_7vorw")
+texture_hover = ExtResource("3_tunbi")
+texture_disabled = ExtResource("4_wttsj")
+
+[node name="AudioStreamPlayer2D" parent="." index="0"]
+stream = ExtResource("5_1sp3j")
+volume_db = -7.0

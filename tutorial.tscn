@@ -1,0 +1,473 @@
+[gd_scene load_steps=12 format=3 uid="uid://ci3kx7tr3baf3"]
+
+[ext_resource type="PackedScene" uid="uid://d3tlimr8cp17e" path="res://player.tscn" id="2_s02dk"]
+[ext_resource type="PackedScene" uid="uid://db7w2ujroi7ep" path="res://Planets/food_planet.tscn" id="4_dfscm"]
+[ext_resource type="PackedScene" uid="uid://cwyf8qfd5g0vi" path="res://UI/game_menus.tscn" id="4_gnt1x"]
+[ext_resource type="PackedScene" uid="uid://b15trnqtit63w" path="res://Planets/metal_planet.tscn" id="5_5drkr"]
+[ext_resource type="PackedScene" uid="uid://bms3116307s33" path="res://UI/game_ui.tscn" id="5_ylr3v"]
+[ext_resource type="PackedScene" uid="uid://do4q1o42nflkq" path="res://Planets/satellite.tscn" id="6_gw0is"]
+[ext_resource type="PackedScene" uid="uid://fc7tve7lfdbk" path="res://Planets/planet.tscn" id="6_l8jqe"]
+[ext_resource type="PackedScene" uid="uid://du4wihkvhy8x2" path="res://Planets/alien_planet.tscn" id="7_2hfkr"]
+
+[sub_resource type="GDScript" id="GDScript_b6hl7"]
+script/source = "extends \"res://game.gd\"
+
+@export var StartAlienPlanets: Array[NodePath]
+
+func _ready():
+	player = PlayerScene.instantiate()
+	add_child(player)
+	player_bucket = $Player/MaterialBucket
+	player.currPlanet = $Satellite
+	
+	get_tree().call_group('Planet', 'spawn')
+	
+	alien_homeworlds = []
+	for i in StartAlienPlanets: alien_homeworlds.append(get_node(i))
+	for i in alien_homeworlds:
+		i.moves_completed.connect(_on_planet_turn_complete.bind())
+	
+	$Camera2D.limit_bottom = 1000
+	$Camera2D.limit_top = -2000
+	$Camera2D.limit_left = -1000
+	$Camera2D.limit_right = 1000
+	
+	$GameUI.end_btn.pressed.connect(_on_end_player_round.bind())
+	
+	player_round_begin.emit()
+"
+
+[sub_resource type="GDScript" id="GDScript_gu1ut"]
+script/source = "extends Camera2D
+
+@export var CamShiftSpeedMod = 2.
+@export var CamSpeed = 600
+@export var ZoomSpeed = 5
+@export var MinZoom = .35
+@export var MaxZoom = 1
+
+var last_player_pos = null
+var curr_zoom = 1.
+
+func _physics_process(delta):
+	var dir = Vector2(Input.get_axis('cam_left', 'cam_right'),
+					  Input.get_axis('cam_up', 'cam_down')).normalized()
+	if Input.is_action_pressed(\"cam_fast\"):
+		dir *= CamShiftSpeedMod
+	
+	position += dir * CamSpeed * delta
+	
+	if last_player_pos != null and dir == Vector2.ZERO:
+		position += Constants.Game.player.position - last_player_pos 
+	last_player_pos = Constants.Game.player.position
+	
+	if position.x > limit_right: position.x = limit_right
+	elif position.x < limit_left: position.x = limit_left
+	if position.y > limit_bottom: position.y = limit_bottom
+	elif position.y < limit_top: position.y = limit_top
+	
+	if Input.is_action_just_pressed(\"cam_recenter\"):
+		position = Constants.Game.player.position
+		
+func _process(delta):
+	var z = 0
+	if Input.is_action_just_released(\"cam_zoom_in\"): z += 1
+	if Input.is_action_just_released(\"cam_zoom_out\"): z -= 1
+	curr_zoom += z * ZoomSpeed * delta
+	curr_zoom = clampf(curr_zoom, MinZoom, MaxZoom)
+	zoom = Vector2(curr_zoom, curr_zoom)
+"
+
+[sub_resource type="GDScript" id="GDScript_i5i62"]
+script/source = "extends Node
+
+var curr_tut = -1
+var planet = false
+var building = false
+
+func _ready():
+	for p in get_tree().get_nodes_in_group('Planet'):
+		p.player_docked.connect(_on_planet_selected.bind(), CONNECT_ONE_SHOT)
+		p.selected.connect(_on_building_placed.bind())
+
+func advance_tutorial():
+	if curr_tut >= 0:
+		get_child(curr_tut).hide()
+	curr_tut += 1
+	print(curr_tut)
+	
+	if curr_tut < get_child_count():
+		get_child(curr_tut).show()
+	
+	
+func _on_game_player_round_begin():
+	advance_tutorial()
+	
+func _on_game_enemy_round_begin():
+	if curr_tut < get_child_count():
+		get_child(curr_tut).hide()
+
+func _on_planet_selected():
+	if planet: return
+	planet = true
+	advance_tutorial()
+
+func _on_building_placed(planet):
+	if get_node('../GameUI').currBuilding != null and !building:
+		building = true
+		advance_tutorial()
+"
+
+[node name="Game" type="Node"]
+script = SubResource("GDScript_b6hl7")
+StartAlienPlanets = Array[NodePath]([NodePath("AlienPlanet")])
+PlayerScene = ExtResource("2_s02dk")
+Satellite = NodePath("Satellite")
+
+[node name="FoodPlanet" parent="." instance=ExtResource("4_dfscm")]
+position = Vector2(-145, -272)
+
+[node name="FoodPlanet2" parent="." instance=ExtResource("4_dfscm")]
+position = Vector2(-315, 6)
+
+[node name="FoodPlanet3" parent="." instance=ExtResource("4_dfscm")]
+position = Vector2(-133, 258)
+
+[node name="MetalPlanet" parent="." instance=ExtResource("5_5drkr")]
+position = Vector2(213, -285)
+
+[node name="MetalPlanet2" parent="." instance=ExtResource("5_5drkr")]
+position = Vector2(339, -19)
+
+[node name="MetalPlanet3" parent="." instance=ExtResource("5_5drkr")]
+position = Vector2(211, 256)
+
+[node name="Planet" parent="." instance=ExtResource("6_l8jqe")]
+position = Vector2(38, -558)
+
+[node name="Planet2" parent="." instance=ExtResource("6_l8jqe")]
+position = Vector2(34, -824)
+
+[node name="Planet3" parent="." instance=ExtResource("6_l8jqe")]
+position = Vector2(42, -1120)
+
+[node name="AlienPlanet" parent="." instance=ExtResource("7_2hfkr")]
+position = Vector2(40, -1348)
+StartSpawnAmount = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = SubResource("GDScript_gu1ut")
+
+[node name="GameMenus" parent="." instance=ExtResource("4_gnt1x")]
+
+[node name="Restart" parent="GameMenus/Win" index="1"]
+visible = false
+
+[node name="GameUI" parent="." instance=ExtResource("5_ylr3v")]
+
+[node name="Satellite" parent="." instance=ExtResource("6_gw0is")]
+collision_mask = 1
+monitoring = true
+MaxSize = 2.0
+MinSize = 2.0
+MaxAnimSpeed = 0.75
+MinAnimSpeed = 0.75
+ProductionAmount = 0
+
+[node name="EnemyTurnTimeout" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="LabelTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TutorialController" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_i5i62")
+
+[node name="Movement" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/Movement"]
+layout_mode = 0
+offset_left = 525.0
+offset_top = 429.0
+offset_right = 653.0
+offset_bottom = 455.0
+text = "Welcome to Space Brigrade!"
+
+[node name="Label2" type="Label" parent="TutorialController/Movement"]
+layout_mode = 0
+offset_left = 386.0
+offset_top = 502.0
+offset_right = 796.0
+offset_bottom = 606.0
+text = "Test out your new ship by clicking on a nearby planet"
+
+[node name="EnergyAndResources" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/EnergyAndResources"]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 111.0
+offset_right = 1026.0
+offset_bottom = 163.0
+text = "Travelling uses energy, and travelling to 
+further planets will use more energy
+"
+
+[node name="Label2" type="Label" parent="TutorialController/EnergyAndResources"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 492.0
+offset_right = 625.0
+offset_bottom = 544.0
+text = "Some planets produce resources, which you can collect 
+by clicking on the button beneath the planet"
+
+[node name="Label3" type="Label" parent="TutorialController/EnergyAndResources"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 567.0
+offset_right = 626.0
+offset_bottom = 619.0
+text = "Collect as many resources as you can,
+then press 'End Day' to recharge your ship"
+
+[node name="Building" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/Building"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 77.0
+offset_right = 989.0
+offset_bottom = 129.0
+text = "These planets don't produce 
+enough resources by themselves"
+
+[node name="Label2" type="Label" parent="TutorialController/Building"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 156.0
+offset_right = 989.0
+offset_bottom = 208.0
+text = "Select Create Building, and place
+a farm on one of the forested
+planets"
+
+[node name="Building2" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label3" type="Label" parent="TutorialController/Building2"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 256.0
+offset_right = 989.0
+offset_bottom = 334.0
+text = "When you travel to the planet,
+you can select the left button
+to construct your new farm"
+
+[node name="Label4" type="Label" parent="TutorialController/Building2"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 357.0
+offset_right = 989.0
+offset_bottom = 435.0
+text = "Farms cost 2 metal and allow a 
+planet to produce 1 extra resource"
+
+[node name="Label5" type="Label" parent="TutorialController/Building2"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 436.0
+offset_right = 1003.0
+offset_bottom = 514.0
+text = "Each planet can hold up to 4
+buildings, but some buildings 
+can have only 1 copy per planet"
+
+[node name="Label6" type="Label" parent="TutorialController/Building2"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 563.0
+offset_right = 1003.0
+offset_bottom = 641.0
+text = "Build more farms and mines,
+then select End Day"
+
+[node name="Warehouse" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/Warehouse"]
+layout_mode = 0
+offset_left = 725.0
+offset_top = 80.0
+offset_right = 971.0
+offset_bottom = 158.0
+text = "Planets have a small amount of
+storage by themselves, but you
+can build Warehouses to
+expand it"
+
+[node name="Label2" type="Label" parent="TutorialController/Warehouse"]
+layout_mode = 0
+offset_left = 725.0
+offset_top = 234.0
+offset_right = 1039.0
+offset_bottom = 312.0
+text = "Try building a Warehouse on one 
+of your mining planets, you'll need
+a lot of metal soon..."
+
+[node name="Aliens" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/Aliens"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 478.0
+offset_right = 194.0
+offset_bottom = 504.0
+text = "Did you hear that?
+Alien activity to the north!"
+
+[node name="Label2" type="Label" parent="TutorialController/Aliens"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 558.0
+offset_right = 452.0
+offset_bottom = 610.0
+text = "You can use WASD to move the camera,
+and space to recenter on your ship"
+
+[node name="Label3" type="Label" parent="TutorialController/Aliens"]
+layout_mode = 0
+offset_left = 722.0
+offset_top = 417.0
+offset_right = 1131.0
+offset_bottom = 625.0
+text = "The planet right above your resource planets
+looks easy to defend. Build an outpost on it
+
+Outposts require food to operate, but will 
+destroy some aliens within range
+
+Once it's built, use the right button beneath the
+planet to store some food in it"
+
+[node name="Factory" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/Factory"]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 126.0
+offset_right = 976.0
+offset_bottom = 178.0
+text = "Now that the aliens won't be able to break
+through, you can start fighting back"
+
+[node name="Label2" type="Label" parent="TutorialController/Factory"]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 198.0
+offset_right = 976.0
+offset_bottom = 250.0
+text = "Metal on its own is useful, but we can't do
+much to attack with it"
+
+[node name="Label3" type="Label" parent="TutorialController/Factory"]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 272.0
+offset_right = 976.0
+offset_bottom = 324.0
+text = "Build a Factory on one of your metal
+planets to convert all of its metal to
+Electronics"
+
+[node name="Label4" type="Label" parent="TutorialController/Factory"]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 373.0
+offset_right = 976.0
+offset_bottom = 451.0
+text = "Be careful turning all of your planets into
+Factories, because then you won't have a 
+source of metal"
+
+[node name="TheBigOne" type="Control" parent="TutorialController"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="TutorialController/TheBigOne"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 539.0
+offset_right = 569.0
+offset_bottom = 643.0
+text = "You've produced some Electronics! Deposit them 
+in the Satellite to start creating The Big One"
+
+[node name="Label2" type="Label" parent="TutorialController/TheBigOne"]
+layout_mode = 0
+offset_left = 627.0
+offset_top = 539.0
+offset_right = 1004.0
+offset_bottom = 643.0
+text = "Keep building The Big One, and make sure your
+Outpost doesn't run out of food
+Once The Big One is complete, you'll win!"
+
+[connection signal="enemy_round_begin" from="." to="GameUI" method="_on_game_enemy_round_begin" flags=18]
+[connection signal="enemy_round_begin" from="." to="TutorialController" method="_on_game_enemy_round_begin"]
+[connection signal="player_lose" from="." to="GameMenus" method="_on_game_player_lose" flags=18]
+[connection signal="player_round_begin" from="." to="GameUI" method="_on_game_player_round_begin" flags=18]
+[connection signal="player_round_begin" from="." to="TutorialController" method="_on_game_player_round_begin"]
+[connection signal="player_win" from="." to="GameMenus" method="_on_game_player_win" flags=18]
+[connection signal="satellite_lose" from="." to="GameMenus" method="_on_game_satellite_lose" flags=18]
+[connection signal="player_docked" from="FoodPlanet" to="FoodPlanet/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="FoodPlanet2" to="FoodPlanet2/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="FoodPlanet3" to="FoodPlanet3/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="MetalPlanet" to="MetalPlanet/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="MetalPlanet2" to="MetalPlanet2/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="MetalPlanet3" to="MetalPlanet3/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="AlienPlanet" to="AlienPlanet/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="player_docked" from="Satellite" to="Satellite/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="timeout" from="EnemyTurnTimeout" to="." method="_on_enemy_turn_timeout_timeout" flags=18]
+[connection signal="timeout" from="LabelTimer" to="." method="_on_label_timer_timeout" flags=18]
+
+[editable path="GameMenus"]

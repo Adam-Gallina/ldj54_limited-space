@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://duvw1mrtv5424"]
+
+[ext_resource type="PackedScene" uid="uid://bq3b3w7lwov7e" path="res://Buildings/building.tscn" id="1_3smgu"]
+[ext_resource type="Script" path="res://Buildings/boost_ring.gd" id="2_sf6b4"]
+
+[node name="BoostRing" instance=ExtResource("1_3smgu")]
+script = ExtResource("2_sf6b4")
+BuildingName = "BoostRing"
+BuiltAnimation = "BoostRing"
+RequiredMaterial = 4
+RequiredAmount = 3

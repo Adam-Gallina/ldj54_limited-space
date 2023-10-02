@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://du4wihkvhy8x2"]
+
+[ext_resource type="PackedScene" uid="uid://fc7tve7lfdbk" path="res://Planets/planet.tscn" id="1_hfxdl"]
+[ext_resource type="Script" path="res://Planets/alien_planet.gd" id="2_yvnju"]
+[ext_resource type="PackedScene" uid="uid://1uamy3yd7avb" path="res://alien.tscn" id="3_fb6em"]
+[ext_resource type="Texture2D" uid="uid://ca6h5gqax31fg" path="res://Images/circle.png" id="4_5wfl6"]
+
+[node name="AlienPlanet" instance=ExtResource("1_hfxdl")]
+script = ExtResource("2_yvnju")
+AlienSpawnSpeed = 0.4
+StartSpawnAmount = 0.6
+AlienScene = ExtResource("3_fb6em")
+ValidBuildings = Array[String]([])
+ValidSingleBuilding = Array[String]([])
+ProtectAliens = true
+
+[node name="AnimatedSprite2D" parent="Image" index="0"]
+self_modulate = Color(0.419608, 0.827451, 0.337255, 1)
+
+[node name="UI" parent="." index="3"]
+visible = false
+
+[node name="planet_ui_button_withdraw" parent="UI" index="0"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(128, 128)
+texture_normal = ExtResource("4_5wfl6")
+texture_hover = null
+texture_disabled = null
+
+[node name="planet_ui_button_deposit" parent="UI" index="1"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(128, 128)
+texture_normal = ExtResource("4_5wfl6")
+texture_hover = null
+texture_disabled = null
+
+[node name="planet_ui_button_store" parent="UI" index="2"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(128, 128)
+texture_normal = ExtResource("4_5wfl6")
+texture_hover = null
+texture_disabled = null

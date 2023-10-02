@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://bplocysk8ea1t"]
+
+[ext_resource type="PackedScene" uid="uid://bq3b3w7lwov7e" path="res://Buildings/building.tscn" id="1_uwr7t"]
+[ext_resource type="Script" path="res://Buildings/outpost.gd" id="2_laik8"]
+[ext_resource type="Texture2D" uid="uid://604nbnuonaya" path="res://Images/Icons/Warning.png" id="3_fhj6h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_brojt"]
+radius = 500.0
+
+[node name="Outpost" instance=ExtResource("1_uwr7t")]
+script = ExtResource("2_laik8")
+BuildingName = "Outpost"
+BuiltAnimation = "Outpost"
+RequiredMaterial = 1
+RequiredAmount = 5
+StorageMaterial = 3
+MaxStorage = 2
+
+[node name="Area2D" type="Area2D" parent="." index="1"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("CircleShape2D_brojt")
+
+[node name="Warning" type="TextureRect" parent="Area2D" index="1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -204.0
+offset_right = 32.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(32, 32)
+tooltip_text = "Outpost is out of food!"
+texture = ExtResource("3_fhj6h")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

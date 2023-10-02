@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd88qqeq8xy85"]
+
+[ext_resource type="PackedScene" uid="uid://b5mpxoumhd6c4" path="res://Buildings/mine.tscn" id="1_pgml1"]
+
+[node name="Farm" instance=ExtResource("1_pgml1")]
+BuildingName = "Farm"
+BuiltAnimation = "Farm"
+RequiredMaterial = 1
+RequiredAmount = 2

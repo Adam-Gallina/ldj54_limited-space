@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj8je77ct2hy4"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_lqhmv"]
+[ext_resource type="PackedScene" uid="uid://d3tlimr8cp17e" path="res://player.tscn" id="2_ht42e"]
+[ext_resource type="PackedScene" uid="uid://cwyf8qfd5g0vi" path="res://UI/game_menus.tscn" id="3_b2sal"]
+[ext_resource type="PackedScene" uid="uid://dkyd3s8bj6gm2" path="res://map_spawner.tscn" id="3_udny4"]
+[ext_resource type="PackedScene" uid="uid://bms3116307s33" path="res://UI/game_ui.tscn" id="4_uo7kr"]
+[ext_resource type="PackedScene" uid="uid://do4q1o42nflkq" path="res://Planets/satellite.tscn" id="6_ledlc"]
+
+[sub_resource type="GDScript" id="GDScript_gu1ut"]
+script/source = "extends Camera2D
+
+@export var CamShiftSpeedMod = 2.
+@export var CamSpeed = 600
+@export var ZoomSpeed = 5
+@export var MinZoom = .35
+@export var MaxZoom = 1
+
+var last_player_pos = null
+var curr_zoom = 1.
+
+func _physics_process(delta):
+	var dir = Vector2(Input.get_axis('cam_left', 'cam_right'),
+					  Input.get_axis('cam_up', 'cam_down')).normalized()
+	if Input.is_action_pressed(\"cam_fast\"):
+		dir *= CamShiftSpeedMod
+	
+	position += dir * CamSpeed * delta
+	
+	if last_player_pos != null and dir == Vector2.ZERO:
+		position += Constants.Game.player.position - last_player_pos 
+	last_player_pos = Constants.Game.player.position
+	
+	if position.x > limit_right: position.x = limit_right
+	elif position.x < limit_left: position.x = limit_left
+	if position.y > limit_bottom: position.y = limit_bottom
+	elif position.y < limit_top: position.y = limit_top
+	
+	if Input.is_action_just_pressed(\"cam_recenter\"):
+		position = Constants.Game.player.position
+		
+func _process(delta):
+	var z = 0
+	if Input.is_action_just_released(\"cam_zoom_in\"): z += 1
+	if Input.is_action_just_released(\"cam_zoom_out\"): z -= 1
+	curr_zoom += z * ZoomSpeed * delta
+	curr_zoom = clampf(curr_zoom, MinZoom, MaxZoom)
+	zoom = Vector2(curr_zoom, curr_zoom)
+"
+
+[node name="Game" type="Node"]
+script = ExtResource("1_lqhmv")
+PlayerScene = ExtResource("2_ht42e")
+Satellite = NodePath("Satellite")
+
+[node name="MapSpawner" parent="." instance=ExtResource("3_udny4")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = SubResource("GDScript_gu1ut")
+
+[node name="GameMenus" parent="." instance=ExtResource("3_b2sal")]
+
+[node name="GameUI" parent="." instance=ExtResource("4_uo7kr")]
+
+[node name="Satellite" parent="." instance=ExtResource("6_ledlc")]
+collision_mask = 1
+monitoring = true
+MaxSize = 2.0
+MinSize = 2.0
+MaxAnimSpeed = 0.75
+MinAnimSpeed = 0.75
+ProductionAmount = 0
+
+[node name="EnemyTurnTimeout" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="LabelTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="enemy_round_begin" from="." to="GameUI" method="_on_game_enemy_round_begin"]
+[connection signal="player_lose" from="." to="GameMenus" method="_on_game_player_lose"]
+[connection signal="player_round_begin" from="." to="GameUI" method="_on_game_player_round_begin"]
+[connection signal="player_win" from="." to="GameMenus" method="_on_game_player_win"]
+[connection signal="satellite_lose" from="." to="GameMenus" method="_on_game_satellite_lose"]
+[connection signal="player_docked" from="Satellite" to="Satellite/Image/SelectorAnim" method="_on_planet_player_docked" flags=18]
+[connection signal="timeout" from="EnemyTurnTimeout" to="." method="_on_enemy_turn_timeout_timeout"]
+[connection signal="timeout" from="LabelTimer" to="." method="_on_label_timer_timeout"]

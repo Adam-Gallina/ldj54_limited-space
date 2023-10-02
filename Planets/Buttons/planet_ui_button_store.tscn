@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3xevyfirhtgj"]
+
+[ext_resource type="PackedScene" uid="uid://jfh7xxyqo21y" path="res://Planets/Buttons/planet_ui_button.tscn" id="1_x7jsl"]
+[ext_resource type="Texture2D" uid="uid://d15ysss6g0mkh" path="res://Images/Icons/Store.png" id="2_mrubo"]
+[ext_resource type="Texture2D" uid="uid://cm7p8tlccsms3" path="res://Images/Icons/Store_Hovered.png" id="3_j4iuh"]
+[ext_resource type="Texture2D" uid="uid://bm3snjf25ctst" path="res://Images/Icons/Store_Disabled.png" id="4_tw6yi"]
+[ext_resource type="AudioStream" uid="uid://dpekoj7hr2iv" path="res://Audio/Build Building.wav" id="5_q0ml7"]
+
+[node name="planet_ui_button_store" instance=ExtResource("1_x7jsl")]
+texture_normal = ExtResource("2_mrubo")
+texture_hover = ExtResource("3_j4iuh")
+texture_disabled = ExtResource("4_tw6yi")
+
+[node name="AudioStreamPlayer2D" parent="." index="0"]
+stream = ExtResource("5_q0ml7")
+volume_db = -5.0

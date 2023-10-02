@@ -1,0 +1,300 @@
+[gd_scene load_steps=10 format=3 uid="uid://bms3116307s33"]
+
+[ext_resource type="Script" path="res://UI/GameUI.gd" id="1_q0ujx"]
+[ext_resource type="PackedScene" uid="uid://dwwgqlqttu0bn" path="res://Buildings/factory.tscn" id="2_5eiwb"]
+[ext_resource type="PackedScene" uid="uid://b5mpxoumhd6c4" path="res://Buildings/mine.tscn" id="2_buul3"]
+[ext_resource type="PackedScene" uid="uid://cfmykv00pqmhg" path="res://Buildings/warehouse.tscn" id="3_f6b7x"]
+[ext_resource type="PackedScene" uid="uid://bplocysk8ea1t" path="res://Buildings/outpost.tscn" id="4_vym3i"]
+[ext_resource type="AudioStream" uid="uid://ci8rgdscj61c" path="res://Audio/Select.wav" id="6_5sqex"]
+[ext_resource type="PackedScene" uid="uid://duvw1mrtv5424" path="res://Buildings/boost_ring.tscn" id="6_7bm6v"]
+[ext_resource type="Texture2D" uid="uid://bk62gajfvh1r0" path="res://Images/Icons/Battery.png" id="6_ndmrd"]
+[ext_resource type="PackedScene" uid="uid://dd88qqeq8xy85" path="res://Buildings/farm.tscn" id="7_oh04s"]
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_q0ujx")
+buildingScenes = {
+"BoostRing": ExtResource("6_7bm6v"),
+"Factory": ExtResource("2_5eiwb"),
+"Farm": ExtResource("7_oh04s"),
+"Mine": ExtResource("2_buul3"),
+"Outpost": ExtResource("4_vym3i"),
+"Warehouse": ExtResource("3_f6b7x")
+}
+DefaultEnergyCol = Color(1, 1, 1, 1)
+BoostedEnergyCol = Color(0, 1, 1, 1)
+SlowedEnergyCol = Color(0.705882, 0.607843, 0, 1)
+ExhaustedEnergyCol = Color(0.627451, 0, 0, 1)
+
+[node name="Inventory" type="Label" parent="."]
+offset_left = 25.0
+offset_top = 23.0
+offset_right = 148.0
+offset_bottom = 251.0
+theme_override_font_sizes/font_size = 25
+text = "Inventory:
+asd
+asd
+asd
+asd
+asd"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -135.7
+offset_top = 33.0
+offset_right = 135.7
+offset_bottom = 86.505
+grow_horizontal = 2
+pivot_offset = Vector2(135.7, 0)
+size_flags_horizontal = 4
+color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[node name="EnergyBG" type="TextureRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 4.0
+offset_right = 56.0
+offset_bottom = 116.0
+grow_horizontal = 2
+pivot_offset = Vector2(56, 0)
+size_flags_horizontal = 4
+texture = ExtResource("6_ndmrd")
+
+[node name="Energy" type="Label" parent="EnergyBG"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 35.0
+offset_right = 135.0
+offset_bottom = 166.0
+scale = Vector2(0.571, 0.571)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 65
+text = "51"
+horizontal_alignment = 1
+
+[node name="Energy2" type="Label" parent="EnergyBG"]
+layout_mode = 0
+offset_left = -65.0
+offset_top = 38.0
+offset_right = 76.0
+offset_bottom = 96.0
+scale = Vector2(0.571, 0.571)
+theme_override_font_sizes/font_size = 40
+text = "Energy:"
+
+[node name="EndRoundBtn" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 36.0001
+offset_top = 38.0
+offset_right = 136.0
+offset_bottom = 88.0
+grow_horizontal = 2
+scale = Vector2(0.865, 0.865)
+text = "End Day"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="EndRoundBtn"]
+stream = ExtResource("6_5sqex")
+volume_db = -10.0
+
+[node name="NewBuilding" type="Button" parent="."]
+offset_left = 994.0
+offset_top = 17.0
+offset_right = 1121.0
+offset_bottom = 48.0
+text = "Create Building"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="NewBuilding"]
+stream = ExtResource("6_5sqex")
+volume_db = -10.0
+
+[node name="BuildingOptions" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 996.0
+offset_top = 18.0
+offset_right = 1036.0
+offset_bottom = 58.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BuildingOptions"]
+position = Vector2(-1, 36)
+stream = ExtResource("6_5sqex")
+volume_db = -10.0
+
+[node name="Mine" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 36.0
+offset_right = 126.0
+offset_bottom = 67.0
+tooltip_text = "Mine [3 food]: Allows planets to produce +1 metal"
+text = "Mine"
+
+[node name="Warehouse" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 120.0
+offset_right = 126.0
+offset_bottom = 151.0
+tooltip_text = "Warehouse [6 metal]: Increases maximum storage of a planet and other buildings by 6"
+text = "Warehouse"
+
+[node name="Outpost" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 161.0
+offset_right = 126.0
+offset_bottom = 192.0
+tooltip_text = "Outpost [5 metal]: Requires 1 food every turn. Destroys some aliens on surrounding planets"
+text = "Outpost"
+
+[node name="Factory" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 202.0
+offset_right = 126.0
+offset_bottom = 233.0
+tooltip_text = "Factory [10 food]: Allows a metal planet to produce Electronics. Also increases planets production by +1"
+text = "Factory"
+
+[node name="BoostRing" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 243.0
+offset_right = 126.0
+offset_bottom = 274.0
+tooltip_text = "Boost Ring [3 electronics]: Reduces energy use by 1 when traveling from the planet"
+text = "Boost Ring"
+
+[node name="Farm" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 79.0
+offset_right = 126.0
+offset_bottom = 110.0
+tooltip_text = "Farm [2 metal]: Allows planets to produce +1 Food"
+text = "Farm"
+
+[node name="Cancel" type="Button" parent="BuildingOptions"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 332.0
+offset_right = 126.0
+offset_bottom = 363.0
+text = "Cancel"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BuildingOptions/Cancel"]
+stream = ExtResource("6_5sqex")
+volume_db = -10.0
+
+[node name="TurnIndicators" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 112.0
+offset_right = 20.0
+offset_bottom = 152.0
+grow_horizontal = 2
+pivot_offset = Vector2(20, 0)
+
+[node name="PopupTimer" type="Timer" parent="TurnIndicators"]
+one_shot = true
+
+[node name="Player" type="Label" parent="TurnIndicators"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -38.5
+offset_right = 43.5
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.819608, 0.411765, 0.12549, 1)
+theme_override_font_sizes/font_size = 54
+text = "Go!"
+
+[node name="Aliens" type="Label" parent="TurnIndicators"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -20.0
+offset_right = 135.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 27
+text = "The aliens advance..."
+
+[node name="EnergyIndicator" type="Node2D" parent="."]
+
+[node name="Background" type="TextureRect" parent="EnergyIndicator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -71.0
+offset_right = 32.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("6_ndmrd")
+
+[node name="Label" type="Label" parent="EnergyIndicator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -56.0
+offset_right = 20.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="EndRoundBtn" to="EndRoundBtn/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="NewBuilding" to="." method="_on_new_building_pressed"]
+[connection signal="pressed" from="NewBuilding" to="NewBuilding/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/Mine" to="BuildingOptions/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/Mine" to="." method="_on_building_selected" binds= ["Mine"]]
+[connection signal="pressed" from="BuildingOptions/Warehouse" to="BuildingOptions/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/Warehouse" to="." method="_on_building_selected" binds= ["Warehouse"]]
+[connection signal="pressed" from="BuildingOptions/Outpost" to="BuildingOptions/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/Outpost" to="." method="_on_building_selected" binds= ["Outpost"]]
+[connection signal="pressed" from="BuildingOptions/Factory" to="BuildingOptions/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/Factory" to="." method="_on_building_selected" binds= ["Factory"]]
+[connection signal="pressed" from="BuildingOptions/BoostRing" to="BuildingOptions/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/BoostRing" to="." method="_on_building_selected" binds= ["BoostRing"]]
+[connection signal="pressed" from="BuildingOptions/Farm" to="BuildingOptions/AudioStreamPlayer2D" method="play"]
+[connection signal="pressed" from="BuildingOptions/Farm" to="." method="_on_building_selected" binds= ["Farm"]]
+[connection signal="pressed" from="BuildingOptions/Cancel" to="." method="_on_new_building_pressed"]
+[connection signal="pressed" from="BuildingOptions/Cancel" to="BuildingOptions/Cancel/AudioStreamPlayer2D" method="play"]
+[connection signal="timeout" from="TurnIndicators/PopupTimer" to="." method="_on_popup_timer_timeout"]

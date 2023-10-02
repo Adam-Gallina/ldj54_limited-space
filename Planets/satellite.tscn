@@ -1,0 +1,60 @@
+[gd_scene load_steps=13 format=3 uid="uid://do4q1o42nflkq"]
+
+[ext_resource type="PackedScene" uid="uid://fc7tve7lfdbk" path="res://Planets/planet.tscn" id="1_m5is3"]
+[ext_resource type="Texture2D" uid="uid://csyyfmhgf1vet" path="res://Planets/Images/Satellite/1.png" id="2_f18gf"]
+[ext_resource type="Script" path="res://Planets/satellite.gd" id="2_gixqd"]
+[ext_resource type="Texture2D" uid="uid://didmsovtabieo" path="res://Planets/Images/Satellite/2.png" id="3_det7a"]
+[ext_resource type="Texture2D" uid="uid://ct4h2yas8potk" path="res://Planets/Images/Satellite/3.png" id="4_ei67u"]
+[ext_resource type="Texture2D" uid="uid://qigd4wu11g3k" path="res://Planets/Images/Satellite/4.png" id="5_p1rda"]
+[ext_resource type="Texture2D" uid="uid://74g4cwjvgxje" path="res://Planets/Images/Satellite/5.png" id="6_8vecs"]
+[ext_resource type="Texture2D" uid="uid://bchwx8238uto2" path="res://Planets/Images/Satellite/6.png" id="7_dysx2"]
+[ext_resource type="Texture2D" uid="uid://bojrpsssaccee" path="res://Planets/Images/Satellite/7.png" id="8_a14o0"]
+[ext_resource type="Texture2D" uid="uid://clo8qsbftovws" path="res://Planets/Images/Satellite/8.png" id="9_3ta3w"]
+[ext_resource type="PackedScene" uid="uid://bpfg4r4hs3fku" path="res://Buildings/the_big_one.tscn" id="11_ftuou"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0yb88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f18gf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_det7a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ei67u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_p1rda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8vecs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_dysx2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_a14o0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3ta3w")
+}],
+"loop": true,
+"name": &"Satellite",
+"speed": 5.0
+}]
+
+[node name="Satellite" instance=ExtResource("1_m5is3")]
+script = ExtResource("2_gixqd")
+MaxSize = 1.5
+MinSize = 1.5
+ValidBuildings = Array[String]([])
+ValidSingleBuilding = Array[String]([])
+
+[node name="AnimatedSprite2D" parent="Image" index="0"]
+sprite_frames = SubResource("SpriteFrames_0yb88")
+animation = &"Satellite"
+frame_progress = 0.33395
+
+[node name="TheBigOne" parent="." index="2" instance=ExtResource("11_ftuou")]
+built = true

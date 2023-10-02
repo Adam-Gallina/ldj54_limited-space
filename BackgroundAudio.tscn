@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4ihy5ldqoncl"]
+
+[ext_resource type="AudioStream" uid="uid://dbv74fxvogmeu" path="res://Audio/space-ranger-moire-main-version-03-04-10814.mp3" id="1_mk5fl"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_mk5fl")
+volume_db = -20.0

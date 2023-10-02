@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5mpxoumhd6c4"]
+
+[ext_resource type="PackedScene" uid="uid://bq3b3w7lwov7e" path="res://Buildings/building.tscn" id="1_se3k1"]
+[ext_resource type="Script" path="res://Buildings/mine.gd" id="2_kiu4k"]
+
+[node name="Mine" instance=ExtResource("1_se3k1")]
+script = ExtResource("2_kiu4k")
+BuildingName = "Mine"
+BuiltAnimation = "Mine"
+RequiredAmount = 3

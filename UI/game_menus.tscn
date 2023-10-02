@@ -1,0 +1,139 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwyf8qfd5g0vi"]
+
+[ext_resource type="Script" path="res://UI/game_menus.gd" id="1_qeh68"]
+
+[node name="GameMenus" type="CanvasLayer"]
+script = ExtResource("1_qeh68")
+
+[node name="Menu" type="Panel" parent="."]
+visible = false
+offset_left = 439.0
+offset_top = 259.0
+offset_right = 719.0
+offset_bottom = 384.0
+
+[node name="Label" type="Label" parent="Menu"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 23.0
+offset_right = 274.0
+offset_bottom = 49.0
+text = "Paused (sort of)"
+
+[node name="Restart" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 65.0
+offset_right = 114.0
+offset_bottom = 96.0
+text = "Restart"
+
+[node name="Menu" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 67.0
+offset_right = 223.0
+offset_bottom = 98.0
+text = "Menu"
+
+[node name="Win" type="Panel" parent="."]
+visible = false
+offset_left = 439.0
+offset_top = 259.0
+offset_right = 719.0
+offset_bottom = 384.0
+
+[node name="Label" type="Label" parent="Win"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 23.0
+offset_right = 245.0
+offset_bottom = 49.0
+text = "The aliens were defeated!"
+
+[node name="Restart" type="Button" parent="Win"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 65.0
+offset_right = 114.0
+offset_bottom = 96.0
+text = "Restart"
+
+[node name="Menu" type="Button" parent="Win"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 67.0
+offset_right = 223.0
+offset_bottom = 98.0
+text = "Menu"
+
+[node name="Lose" type="Panel" parent="."]
+visible = false
+offset_left = 439.0
+offset_top = 259.0
+offset_right = 719.0
+offset_bottom = 384.0
+
+[node name="Label" type="Label" parent="Lose"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 23.0
+offset_right = 245.0
+offset_bottom = 49.0
+text = "Your ship was captured..."
+
+[node name="Restart" type="Button" parent="Lose"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 65.0
+offset_right = 114.0
+offset_bottom = 96.0
+text = "Restart"
+
+[node name="Menu" type="Button" parent="Lose"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 67.0
+offset_right = 223.0
+offset_bottom = 98.0
+text = "Menu"
+
+[node name="LoseSatellite" type="Panel" parent="."]
+visible = false
+offset_left = 439.0
+offset_top = 259.0
+offset_right = 719.0
+offset_bottom = 384.0
+
+[node name="Label" type="Label" parent="LoseSatellite"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 21.0
+offset_right = 255.0
+offset_bottom = 47.0
+text = "The satellite was destroyed..."
+
+[node name="Restart" type="Button" parent="LoseSatellite"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 65.0
+offset_right = 114.0
+offset_bottom = 96.0
+text = "Restart"
+
+[node name="Menu" type="Button" parent="LoseSatellite"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 67.0
+offset_right = 223.0
+offset_bottom = 98.0
+text = "Menu"
+
+[connection signal="pressed" from="Menu/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Menu/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Win/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Win/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Lose/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Lose/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="LoseSatellite/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="LoseSatellite/Menu" to="." method="_on_menu_pressed"]

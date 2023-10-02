@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://db7w2ujroi7ep"]
+
+[ext_resource type="PackedScene" uid="uid://fc7tve7lfdbk" path="res://Planets/planet.tscn" id="1_6ekk1"]
+
+[node name="FoodPlanet" instance=ExtResource("1_6ekk1")]
+ProductionType = 3
+ValidBuildings = Array[String](["Warehouse", "Farm", "BoostRing"])
+
+[node name="ResourceAnim" parent="Image" index="1"]
+visible = true
+animation = &"Forest"

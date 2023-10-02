@@ -1,0 +1,156 @@
+[gd_scene load_steps=23 format=3 uid="uid://djw1du58gl8df"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_22hcv"]
+[ext_resource type="Texture2D" uid="uid://87orsfx2v013" path="res://Images/StartMenu/0001.png" id="2_t6ncf"]
+[ext_resource type="Texture2D" uid="uid://bn4tew3v0nhks" path="res://Images/StartMenu/0005.png" id="3_18rl2"]
+[ext_resource type="Texture2D" uid="uid://r0orw6w0by5v" path="res://Images/StartMenu/0009.png" id="4_0i0no"]
+[ext_resource type="Texture2D" uid="uid://b6yb6soa0825q" path="res://Images/StartMenu/0013.png" id="5_ajymv"]
+[ext_resource type="Texture2D" uid="uid://bs3dfxoi5fdfx" path="res://Images/StartMenu/0017.png" id="6_md24g"]
+[ext_resource type="Texture2D" uid="uid://c8ly07nop0yx7" path="res://Images/StartMenu/0021.png" id="7_7f87b"]
+[ext_resource type="Texture2D" uid="uid://dr7dq1cmf0fx8" path="res://Images/StartMenu/0025.png" id="8_fj21p"]
+[ext_resource type="Texture2D" uid="uid://bxh2u2lnlkwgn" path="res://Images/StartMenu/0029.png" id="9_g8bqd"]
+[ext_resource type="Texture2D" uid="uid://bws7xwoss65cq" path="res://Images/StartMenu/0033.png" id="10_wjcln"]
+[ext_resource type="Texture2D" uid="uid://dahwrqyv7y5oi" path="res://Images/StartMenu/0037.png" id="11_jxwic"]
+[ext_resource type="Texture2D" uid="uid://bj0o4q3uqm7mv" path="res://Images/StartMenu/0041.png" id="12_rbll8"]
+[ext_resource type="Texture2D" uid="uid://nbqe2fydoeib" path="res://Images/StartMenu/0045.png" id="13_5i64w"]
+[ext_resource type="Texture2D" uid="uid://qtvx7i2fbel8" path="res://Images/StartMenu/0049.png" id="14_esxm1"]
+[ext_resource type="Texture2D" uid="uid://j6rarslr25fn" path="res://Images/StartMenu/0053.png" id="15_loqa0"]
+[ext_resource type="Texture2D" uid="uid://csijhx4gkcoqq" path="res://Images/StartMenu/0057.png" id="16_r4vgt"]
+[ext_resource type="Texture2D" uid="uid://cw1iv0kdbeuqa" path="res://Images/StartMenu/0061.png" id="17_nj4x3"]
+[ext_resource type="Texture2D" uid="uid://bia2368et55oh" path="res://Images/StartMenu/0065.png" id="18_8d400"]
+[ext_resource type="Texture2D" uid="uid://c3yangs8brlt8" path="res://Images/StartMenu/0069.png" id="19_5o1hd"]
+[ext_resource type="Texture2D" uid="uid://cirpmikfelp8o" path="res://Images/StartMenu/0073.png" id="20_kwq7h"]
+[ext_resource type="Texture2D" uid="uid://dn8fnl7krbt73" path="res://Images/StartMenu/0077.png" id="21_scfs2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q8ax6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t6ncf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_18rl2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0i0no")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ajymv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_md24g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7f87b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fj21p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_g8bqd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_wjcln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jxwic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_rbll8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5i64w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_esxm1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_loqa0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_r4vgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_nj4x3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_8d400")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_5o1hd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_kwq7h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_scfs2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_22hcv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -551.0
+offset_right = 710.0
+offset_bottom = -410.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.478431, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 101
+text = "Space Brigade"
+
+[node name="Tutorial" type="Button" parent="CanvasLayer"]
+offset_left = 112.0
+offset_top = 257.0
+offset_right = 292.0
+offset_bottom = 317.0
+theme_override_font_sizes/font_size = 36
+text = "Tutorial"
+
+[node name="Start" type="Button" parent="CanvasLayer"]
+offset_left = 112.0
+offset_top = 336.0
+offset_right = 292.0
+offset_bottom = 396.0
+theme_override_font_sizes/font_size = 36
+text = "Start"
+
+[node name="Quit" type="Button" parent="CanvasLayer"]
+offset_left = 113.0
+offset_top = 415.0
+offset_right = 293.0
+offset_bottom = 475.0
+theme_override_font_sizes/font_size = 36
+text = "Quit"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -39.0
+offset_right = 335.0
+offset_bottom = -13.0
+grow_vertical = 0
+text = "Made for Ludum Dare 54 by Adam Gallina"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(623, 327)
+scale = Vector2(5.17451, 5.17451)
+sprite_frames = SubResource("SpriteFrames_q8ax6")
+frame = 3
+frame_progress = 0.904499
+
+[connection signal="pressed" from="CanvasLayer/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Quit" to="." method="_on_quit_pressed"]

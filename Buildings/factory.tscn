@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwwgqlqttu0bn"]
+
+[ext_resource type="PackedScene" uid="uid://bq3b3w7lwov7e" path="res://Buildings/building.tscn" id="1_mmn4k"]
+[ext_resource type="Script" path="res://Buildings/factory.gd" id="2_j8420"]
+
+[node name="Factory" instance=ExtResource("1_mmn4k")]
+script = ExtResource("2_j8420")
+ProducedMaterial = 4
+BuildingName = "Factory"
+RequiredAmount = 10

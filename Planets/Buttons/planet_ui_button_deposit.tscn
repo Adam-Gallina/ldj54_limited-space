@@ -1,0 +1,16 @@
+[gd_scene load_steps=6 format=3 uid="uid://btms168vabmgt"]
+
+[ext_resource type="PackedScene" uid="uid://jfh7xxyqo21y" path="res://Planets/Buttons/planet_ui_button.tscn" id="1_ccax6"]
+[ext_resource type="Texture2D" uid="uid://c1kc15dnoipjw" path="res://Images/Icons/Build.png" id="2_3ckxa"]
+[ext_resource type="Texture2D" uid="uid://5wuy7hokd8ap" path="res://Images/Icons/Build_Hovered.png" id="3_8i6sa"]
+[ext_resource type="Texture2D" uid="uid://bc4qd05w8jvr7" path="res://Images/Icons/Build_Disabled.png" id="4_rnyik"]
+[ext_resource type="AudioStream" uid="uid://dpekoj7hr2iv" path="res://Audio/Build Building.wav" id="5_ytedd"]
+
+[node name="planet_ui_button_deposit" instance=ExtResource("1_ccax6")]
+texture_normal = ExtResource("2_3ckxa")
+texture_hover = ExtResource("3_8i6sa")
+texture_disabled = ExtResource("4_rnyik")
+
+[node name="AudioStreamPlayer2D" parent="." index="0"]
+stream = ExtResource("5_ytedd")
+volume_db = -5.0

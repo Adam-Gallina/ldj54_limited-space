@@ -1,0 +1,492 @@
+[gd_scene load_steps=72 format=3 uid="uid://fc7tve7lfdbk"]
+
+[ext_resource type="Script" path="res://Planets/planet.gd" id="1_oytv5"]
+[ext_resource type="Texture2D" uid="uid://iry0x87dheg2" path="res://Planets/Images/Blue/0001.png" id="2_2kuvu"]
+[ext_resource type="Texture2D" uid="uid://cgupaos8efw88" path="res://Planets/Images/Green/0001.png" id="2_r7max"]
+[ext_resource type="Texture2D" uid="uid://b2nehsoj6o0gg" path="res://Planets/Images/Green/0011.png" id="3_3xemf"]
+[ext_resource type="Texture2D" uid="uid://cr4elhxykeliy" path="res://Planets/Images/Blue/0011.png" id="3_rpocn"]
+[ext_resource type="Texture2D" uid="uid://cqdonqq0h703d" path="res://Planets/Images/Blue/0021.png" id="4_3jtb1"]
+[ext_resource type="Texture2D" uid="uid://bales1fhiyen7" path="res://Planets/Images/Green/0021.png" id="4_tfbps"]
+[ext_resource type="Texture2D" uid="uid://vv0yi58rk6vl" path="res://Planets/Images/Blue/0031.png" id="5_47uqp"]
+[ext_resource type="Texture2D" uid="uid://28w0t6maor7o" path="res://Planets/Images/Green/0031.png" id="5_nfe41"]
+[ext_resource type="Texture2D" uid="uid://chv61n87bwm6r" path="res://Planets/Images/Green/0041.png" id="6_qn2qx"]
+[ext_resource type="Texture2D" uid="uid://cdgup8wjs0myk" path="res://Planets/Images/Blue/0041.png" id="6_xy7fu"]
+[ext_resource type="Texture2D" uid="uid://cctrxe1xwqtsk" path="res://Planets/Images/Green/0051.png" id="7_sqc58"]
+[ext_resource type="Texture2D" uid="uid://du0tk01auxrey" path="res://Planets/Images/Blue/0051.png" id="7_y7mvd"]
+[ext_resource type="Texture2D" uid="uid://cy4bv1jhfk0b" path="res://Planets/Images/Blue/0061.png" id="8_rrgp8"]
+[ext_resource type="Texture2D" uid="uid://co11wmf2yf4v8" path="res://Planets/Images/Green/0061.png" id="8_u57yo"]
+[ext_resource type="Texture2D" uid="uid://cukohc2wrwa8k" path="res://Planets/Images/Green/0071.png" id="9_3ie8s"]
+[ext_resource type="Texture2D" uid="uid://dfnra8yt06a4k" path="res://Planets/Images/Blue/0071.png" id="9_v0beo"]
+[ext_resource type="Texture2D" uid="uid://cocdngor33kit" path="res://Planets/Images/Forest/0001.png" id="10_abh11"]
+[ext_resource type="Script" path="res://Planets/planet_ui.gd" id="11_esw8s"]
+[ext_resource type="Texture2D" uid="uid://du3d6w1hamnbf" path="res://Planets/Images/Forest/0011.png" id="11_wejr5"]
+[ext_resource type="PackedScene" uid="uid://dqo6tccsotmjk" path="res://Planets/Buttons/planet_ui_button_withdraw.tscn" id="12_5cmag"]
+[ext_resource type="Texture2D" uid="uid://bkxl5dv4yds3o" path="res://Planets/Images/Forest/0021.png" id="12_fgbo8"]
+[ext_resource type="PackedScene" uid="uid://btms168vabmgt" path="res://Planets/Buttons/planet_ui_button_deposit.tscn" id="12_fu1ao"]
+[ext_resource type="Texture2D" uid="uid://dnhnjqk204lbb" path="res://Planets/Images/Forest/0031.png" id="13_4ygsn"]
+[ext_resource type="PackedScene" uid="uid://c3xevyfirhtgj" path="res://Planets/Buttons/planet_ui_button_store.tscn" id="13_hogn1"]
+[ext_resource type="Texture2D" uid="uid://ibyx62osq3cb" path="res://Planets/Images/Forest/0041.png" id="14_7kt38"]
+[ext_resource type="Texture2D" uid="uid://dxalnqt60wbqf" path="res://Planets/Images/Forest/0051.png" id="15_bo1bg"]
+[ext_resource type="Texture2D" uid="uid://b6gmftk10uh1w" path="res://Planets/Images/Forest/0061.png" id="16_ctfg6"]
+[ext_resource type="Texture2D" uid="uid://cx1s52e766tw6" path="res://Planets/Images/Forest/0071.png" id="17_7th4b"]
+[ext_resource type="Texture2D" uid="uid://75c4wugc4he2" path="res://Planets/Images/Rocks/0001.png" id="18_3smal"]
+[ext_resource type="Texture2D" uid="uid://d01abik0p8h5j" path="res://Planets/Images/Purple/0001.png" id="18_5yfpj"]
+[ext_resource type="Texture2D" uid="uid://dhovig5e74afw" path="res://Planets/Images/Rocks/0011.png" id="19_fss1c"]
+[ext_resource type="Texture2D" uid="uid://bv2uimagd7l1j" path="res://Planets/Images/Purple/0011.png" id="19_tjs7c"]
+[ext_resource type="Texture2D" uid="uid://bqqlfwa2vm8eq" path="res://Planets/Images/Rocks/0021.png" id="20_5rckh"]
+[ext_resource type="Texture2D" uid="uid://c72mtdj3bgg66" path="res://Planets/Images/Purple/0021.png" id="20_pjs7j"]
+[ext_resource type="Texture2D" uid="uid://hwo3hmyl50b3" path="res://Planets/Images/Purple/0031.png" id="21_ck6ag"]
+[ext_resource type="Texture2D" uid="uid://cm21hf5uqel53" path="res://Planets/Images/Rocks/0031.png" id="21_y41h6"]
+[ext_resource type="Texture2D" uid="uid://cmgi5f6mj7lut" path="res://Planets/Images/Purple/0041.png" id="22_8gl78"]
+[ext_resource type="Texture2D" uid="uid://j0wkmebyboxa" path="res://Planets/Images/Rocks/0041.png" id="22_ukoi4"]
+[ext_resource type="Texture2D" uid="uid://bkt3q3wd75irk" path="res://Planets/Images/Purple/0051.png" id="23_p5q1v"]
+[ext_resource type="Texture2D" uid="uid://cvtcum2l3vqmy" path="res://Planets/Images/Rocks/0051.png" id="23_uehxn"]
+[ext_resource type="Texture2D" uid="uid://b34wllkxupxp6" path="res://Planets/Images/Purple/0061.png" id="24_mwjxq"]
+[ext_resource type="Texture2D" uid="uid://dihaa4muhjq08" path="res://Planets/Images/Rocks/0061.png" id="24_yvp5r"]
+[ext_resource type="Texture2D" uid="uid://dmu35kti47idx" path="res://Planets/Images/Rocks/0071.png" id="25_kfh5h"]
+[ext_resource type="Texture2D" uid="uid://o6dawqywfufh" path="res://Planets/Images/Purple/0071.png" id="25_mcray"]
+[ext_resource type="Texture2D" uid="uid://c8gvfmcc2y7ub" path="res://Planets/Images/Red/0001.png" id="26_p4wqj"]
+[ext_resource type="Texture2D" uid="uid://pgil745osggr" path="res://Planets/Images/Ring1.png" id="26_poy4q"]
+[ext_resource type="Texture2D" uid="uid://ghbymdq4joak" path="res://Planets/Images/Ring2.png" id="27_17kt2"]
+[ext_resource type="Texture2D" uid="uid://d07gxmmc2t54t" path="res://Planets/Images/Red/0011.png" id="27_51ckq"]
+[ext_resource type="Texture2D" uid="uid://bwg2eyyqqyts1" path="res://Planets/Images/Red/0021.png" id="28_5sjp5"]
+[ext_resource type="Texture2D" uid="uid://dumm1nprykoma" path="res://Planets/Images/Ring3.png" id="28_7fmbf"]
+[ext_resource type="Texture2D" uid="uid://cxt8afysjxu45" path="res://Planets/Images/Red/0031.png" id="29_bh3jm"]
+[ext_resource type="Texture2D" uid="uid://bf3je8lxfb120" path="res://Planets/Images/Ring4.png" id="29_d4j4i"]
+[ext_resource type="Texture2D" uid="uid://b6jfqplsv80vs" path="res://Planets/Images/Red/0041.png" id="30_v8mny"]
+[ext_resource type="Texture2D" uid="uid://c1vdevah2exd2" path="res://Planets/Images/Red/0051.png" id="31_sqowh"]
+[ext_resource type="Texture2D" uid="uid://cms2r7o8nv717" path="res://Planets/Images/Red/0061.png" id="32_8rym4"]
+[ext_resource type="Texture2D" uid="uid://utpilp0nk1um" path="res://Planets/Images/Red/0071.png" id="33_4awx6"]
+[ext_resource type="Texture2D" uid="uid://d03lpyuch2ttw" path="res://Planets/Images/Yellow/0001.png" id="34_4xq46"]
+[ext_resource type="Texture2D" uid="uid://cc03nwy7lgnc" path="res://Planets/Images/Yellow/0011.png" id="35_fujd4"]
+[ext_resource type="Texture2D" uid="uid://6wytj7hsj87k" path="res://Planets/Images/Yellow/0021.png" id="36_dveaq"]
+[ext_resource type="Texture2D" uid="uid://djfk77ni3n7un" path="res://Planets/Images/Yellow/0031.png" id="37_t0jki"]
+[ext_resource type="Texture2D" uid="uid://2a73m3fha37u" path="res://Planets/Images/Yellow/0041.png" id="38_dngfl"]
+[ext_resource type="Texture2D" uid="uid://nrbdxfa1jo3p" path="res://Planets/Images/Yellow/0051.png" id="39_n4kvp"]
+[ext_resource type="Texture2D" uid="uid://cr6b1lbtsj67k" path="res://Planets/Images/Yellow/0061.png" id="40_ht4or"]
+[ext_resource type="Texture2D" uid="uid://c8wor4a2embk" path="res://Planets/Images/Yellow/0071.png" id="41_rdtm7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_csopy"]
+radius = 35.076
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1sise"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2kuvu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rpocn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3jtb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_47uqp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xy7fu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_y7mvd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rrgp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_v0beo")
+}],
+"loop": true,
+"name": &"Blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r7max")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3xemf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tfbps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nfe41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qn2qx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sqc58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_u57yo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3ie8s")
+}],
+"loop": true,
+"name": &"Green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_5yfpj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_tjs7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_pjs7j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ck6ag")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_8gl78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_p5q1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_mwjxq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_mcray")
+}],
+"loop": true,
+"name": &"Purple",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_p4wqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_51ckq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_5sjp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_bh3jm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_v8mny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_sqowh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_8rym4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_4awx6")
+}],
+"loop": true,
+"name": &"Red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_4xq46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_fujd4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_dveaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_t0jki")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_dngfl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_n4kvp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_ht4or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_rdtm7")
+}],
+"loop": true,
+"name": &"Yellow",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrwo7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_abh11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_wejr5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_fgbo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_4ygsn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_7kt38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_bo1bg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ctfg6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_7th4b")
+}],
+"loop": true,
+"name": &"Forest",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_3smal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_fss1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_5rckh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_y41h6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_ukoi4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_uehxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_yvp5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_kfh5h")
+}],
+"loop": true,
+"name": &"Rocks",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ryhps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_poy4q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_17kt2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_7fmbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_d4j4i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_2g1cb"]
+script/source = "extends AnimatedSprite2D
+
+@export var DefaultCol: Color = Color.WHITE
+@export var PlayerCol: Color = Color.ORANGE
+@export var AlienCol: Color = Color.LIME
+@export var AlienTargetCol: Color = Color.LIME
+
+var player_docked = false
+var aliens_docked = false
+var aliens_targeting = false
+
+var hovered = false
+
+func update_color():
+	show()
+	if aliens_docked:
+		self_modulate = AlienCol
+	elif aliens_targeting:
+		self_modulate = AlienTargetCol
+	elif player_docked:
+		self_modulate = PlayerCol
+	else:
+		self_modulate = DefaultCol
+		visible = hovered
+
+
+func _on_planet_mouse_entered():
+	hovered = true
+	update_color()
+
+func _on_planet_mouse_exited():
+	hovered = false
+	update_color()
+
+func _on_planet_player_depart():
+	player_docked = false
+	update_color()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brteo"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 5.0
+
+[node name="Planet" type="Area2D" groups=["Planet"]]
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_oytv5")
+MaxSize = 3.0
+MinSize = 2.5
+ValidBuildings = Array[String](["Warehouse", "BoostRing"])
+ValidSingleBuilding = Array[String](["Outpost"])
+
+[node name="Image" type="CollisionShape2D" parent="."]
+position = Vector2(0, 60)
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_csopy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Image"]
+sprite_frames = SubResource("SpriteFrames_1sise")
+animation = &"Yellow"
+
+[node name="ResourceAnim" type="AnimatedSprite2D" parent="Image"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_nrwo7")
+animation = &"Rocks"
+
+[node name="SelectorAnim" type="AnimatedSprite2D" parent="Image"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_ryhps")
+frame = 2
+frame_progress = 0.952452
+script = SubResource("GDScript_2g1cb")
+AlienTargetCol = Color(0, 1, 0, 0.647059)
+
+[node name="StatusBox" type="VBoxContainer" parent="."]
+visible = false
+z_index = 10
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = 34.0
+offset_right = 59.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatusBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="StatusLabel" type="Label" parent="StatusBox/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 12
+text = "Produces pee
+Has 4 pee
+building is complete 
+buildinf asd space"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="StatusBox/HBoxContainer/StatusLabel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_brteo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = 77.0
+offset_right = 22.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_esw8s")
+
+[node name="planet_ui_button_withdraw" parent="UI" instance=ExtResource("12_5cmag")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -13.5385
+offset_top = 66.8462
+offset_right = 50.4615
+offset_bottom = 130.846
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="planet_ui_button_deposit" parent="UI" instance=ExtResource("12_fu1ao")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -85.0769
+offset_top = 44.5385
+offset_right = -21.0769
+offset_bottom = 108.538
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="planet_ui_button_store" parent="UI" instance=ExtResource("13_hogn1")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 59.5385
+offset_top = 45.3077
+offset_right = 123.538
+offset_bottom = 109.308
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="." to="Image/SelectorAnim" method="_on_planet_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_exited" from="." to="Image/SelectorAnim" method="_on_planet_mouse_exited"]
+[connection signal="player_depart" from="." to="Image/SelectorAnim" method="_on_planet_player_depart"]
+[connection signal="player_depart" from="." to="UI" method="_on_planet_player_depart"]
+[connection signal="player_docked" from="." to="UI" method="_on_planet_player_docked"]
+[connection signal="pressed" from="UI/planet_ui_button_withdraw" to="." method="_on_planet_ui_button_withdraw_pressed"]
+[connection signal="pressed" from="UI/planet_ui_button_deposit" to="." method="_on_planet_ui_button_deposit_pressed"]
+[connection signal="pressed" from="UI/planet_ui_button_store" to="." method="_on_planet_ui_button_store_pressed"]

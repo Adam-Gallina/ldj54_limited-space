@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpfg4r4hs3fku"]
+
+[ext_resource type="PackedScene" uid="uid://bq3b3w7lwov7e" path="res://Buildings/building.tscn" id="1_ymgt6"]
+[ext_resource type="Script" path="res://Buildings/the_big_one.gd" id="2_tha73"]
+
+[node name="TheBigOne" instance=ExtResource("1_ymgt6")]
+script = ExtResource("2_tha73")
+BuildingName = "The Big One"
+RequiredMaterial = 1
+RequiredAmount = 20
+StorageMaterial = 4
+MaxStorage = 20
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+visible = false
+
+[node name="AudioStreamPlayer2D" parent="." index="1"]
+stream = null
