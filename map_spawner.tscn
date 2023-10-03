@@ -151,22 +151,17 @@ func GenerateMap(planet_parent: Node, satellite: Node):
 		valid += g
 		if target == null: continue
 		
-		target.modulate = Color.GREEN
-		start.modulate = Color.RED
-		
 		var dir = target.position - start.position
 		var count = dir.length() / GridSize
 		var step = dir / count
 		var p = start
 		for c in range(1, count):
 			p = _spawn_planet(planet_parent, OuterPlanets, start.position + step * c)
-			p.modulate = Color.BLACK
 			planets.append(p)
 			valid.append(planets.size()-1)
 		
 		if _dist(p, target) > PlanetMargin:
 			p = _spawn_planet(planet_parent, OuterPlanets, p.position + (target.position - p.position) / 2)
-			p.modulate = Color.ORANGE
 			planets.append(p)
 			valid.append(planets.size()-1)
 "
